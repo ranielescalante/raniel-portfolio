@@ -1,123 +1,37 @@
-# Publish your portfolio on GitHub + Render
+# Update your existing portfolio on GitHub and Render (step by step)
 
-**This guide is for beginners.** You do not need to install anything on your Mac. Everything can be done in your web browser.
+Use this guide if your current portfolio is already live at `https://raniel-portfolio.onrender.com/` and your GitHub repository is `https://github.com/ranielescalante/raniel-portfolio`.
 
-## PART A — Preview and unzip your website
+**Do not create another GitHub repository or Render site.**
 
-1. Download `Raniel_Escalante_Portfolio.zip` from ChatGPT.
-2. On your Mac, find the ZIP in **Downloads** and double-click it.
-3. Open the extracted `raniel-portfolio` folder.
-4. Double-click **`index.html`** to preview the portfolio in Chrome or Safari.
-5. Keep the extracted folder available; you'll upload its **contents**, not the ZIP.
+## Part 1: Update GitHub
 
-## PART B — Upload the website to GitHub
+1. Download `Raniel_Portfolio_Modern_RFE.zip` and double-click it in Finder to unzip.
+2. Open the extracted `Raniel_Portfolio_Modern_RFE` folder.
+3. Open https://github.com/ranielescalante/raniel-portfolio in your browser.
+4. Click the small `+` next to **Go to file**, then choose **Upload files** (or **Add file → Upload files** if your GitHub layout differs).
+5. From the extracted folder, drag **`index.html` and the entire `assets` folder** to GitHub's upload box. **Do not upload the outer folder or ZIP.**
+6. Check the upload list: it should include `index.html`, `assets/styles.css`, `assets/main.js`, `assets/favicon.svg`, `assets/Raniel_Escalante_Resume.pdf`. The existing files with those names are intentionally updated.
+7. Leave **Commit directly to main branch** selected, then click **Commit changes**.
 
-1. Go to **https://github.com/** and sign in to your account.
-2. Click the **+** icon at the top-right, then **New repository**. (You can also visit https://github.com/new.)
-3. Enter the repository name **`raniel-portfolio`**. If this name is taken on your account, use another name such as `creative-qa-portfolio`.
-4. Choose **Public** if you want recruiters to access the source and optionally host it on GitHub Pages. **Private** is also possible for a Render connection, subject to account access and permissions.
-5. Click **Create repository**. You can leave the setup checkboxes unchecked.
-6. In the new empty repository, click the link **uploading an existing file**. If you initialized a README, use **Add file → Upload files** instead.
-7. Open the extracted `raniel-portfolio` folder in Finder. **Drag its contents into the GitHub upload area.** You should upload `index.html`, `assets/` (with the 3 files inside), `README.md`, and `DEPLOY-ON-RENDER.md`. It is fine if hidden files such as `.nojekyll` or `.gitignore` are not visible.
-8. Scroll down to the **Commit changes** area, enter a message such as `Initial portfolio website`, and click **Commit changes**.
-9. Check that GitHub now shows `index.html` **at the top level** and an `assets` folder with `styles.css`, `main.js`, and `favicon.svg` inside.
+## Part 2: Publish on Render
 
-### Important folder check
+8. Open https://dashboard.render.com/ and choose the existing **raniel-portfolio** static site.
+9. Go to **Deploys**.
+10. Select **Manual Deploy → Deploy latest commit**. The site's initial setup used a public repository URL, so manual deployment is the reliable update step.
+11. When the status becomes **Live**, open https://raniel-portfolio.onrender.com/.
+12. If it still looks old, force-refresh your browser: **Command + Shift + R** on Mac Chrome.
 
-Correct:
+## Part 3: Test
 
-```text
-raniel-portfolio (GitHub repository)
-├── index.html
-├── assets/
-│   ├── styles.css
-│   ├── main.js
-│   └── favicon.svg
-├── README.md
-└── DEPLOY-ON-RENDER.md
-```
+13. Check the hero layout and responsive navigation.
+14. Under the featured QA project, find the new **RFE Chrome Tools** section. Click **Explore the RFE Tools site** — it should open `https://rfe-tools-website.onrender.com/index.html` in a new tab.
+15. Click **Download résumé (PDF)** and check the file opens correctly.
+16. Check email link opens a new message and GitHub link opens your profile.
 
-Incorrect: having another `raniel-portfolio/` folder inside the repository, with `index.html` hidden a level deeper. If that happens, move the files up to the repository root or recreate the repo upload.
+If the Render build fails, check the original static-site configuration:
+- **Root Directory**: blank
+- **Build Command**: `mkdir -p dist && cp index.html dist/ && cp -R assets dist/`
+- **Publish Directory**: `dist`
 
-## PART C — Connect GitHub to Render
-
-1. Open **https://dashboard.render.com/** and log in or create an account.
-2. If you are not already connected to GitHub, authorize Render to access GitHub. Render may ask you to select which repositories its GitHub app can access.
-3. In the Render dashboard, click **+ New** (or **New**) and choose **Static Site**. **Do not choose Web Service.**
-4. Find your `raniel-portfolio` repository and click **Connect**.
-5. If you cannot see your repository, check the troubleshooting section below.
-
-## PART D — Enter these exact Render settings
-
-| Render field | What to enter |
-|---|---|
-| **Name** | `raniel-portfolio` (or any available site name) |
-| **Branch** | `main` |
-| **Root Directory** | Leave this empty |
-| **Build Command** | `mkdir -p dist && cp index.html dist/ && cp -R assets dist/` |
-| **Publish Directory** | `dist` |
-
-Nothing else is required for this static website; there are no environment variables or start command.
-
-> **Copy the Build Command exactly.** The spaces and capitalization matter. It copies the site files into the folder Render publishes.
-
-6. Click **Create Static Site** or **Deploy Static Site** (the button wording can vary).
-7. Watch the Render deployment log. You should eventually see a successful/live deployment status.
-8. Open the generated `.onrender.com` URL shown in your Render dashboard.
-9. Test the **Explore my work**, **Get in touch**, and mobile navigation links.
-
-**Important:** Your actual URL is generated by Render and may have a suffix if your preferred site name is unavailable. Copy the real URL from your dashboard rather than guessing it.
-
-Render static sites are free to deploy under Render's current rules, but usage counts toward included bandwidth and build/pipeline allowances. See https://render.com/docs/static-sites and https://render.com/docs/free.
-
-## PART E — How to update the live site later
-
-1. Open your GitHub portfolio repository.
-2. Click `index.html` to edit the wording, or `assets/styles.css` to edit the design.
-3. Use the pencil **Edit this file** icon.
-4. Click **Commit changes**.
-5. If auto-deploy is enabled, Render redeploys from `main` automatically. Check the **Events** / **Deploys** area in Render for the new deployment.
-6. Refresh the live URL. A hard refresh (Chrome on Mac: **Command + Shift + R**) can help if you are seeing an older cached page.
-
-## If something goes wrong
-
-### "My GitHub repository isn't visible in Render"
-
-- Check that you are signed in with the **same GitHub account** that owns the repository.
-- Check the GitHub authorization for the Render app. From GitHub, go to **Settings → Applications → Installed GitHub Apps**, find **Render**, choose **Configure**, and make sure `raniel-portfolio` is included in its repository access.
-- Back in Render, refresh the repo list or reconnect GitHub via your Render **Account Settings → Git Deployment Credentials**.
-
-### "The site is blank or says 404"
-
-- Confirm that the GitHub repository contains `index.html` at the **root**.
-- Confirm that you selected **Static Site**, not **Web Service**.
-- Confirm that **Branch = main** and **Publish Directory = dist**.
-- Open the Render deploy logs to see whether the Build Command succeeded.
-
-### "I can see the text but there is no design / no CSS"
-
-- On GitHub, open `assets/styles.css` and confirm that it contains CSS code.
-- Check that the folder is named exactly `assets` (lowercase) and the CSS file is `styles.css`.
-- Ensure that the Build Command contains `cp -R assets dist/`.
-- Try a hard refresh in Chrome: **Command + Shift + R**.
-
-### "Render says build failed"
-
-Confirm that `index.html` and `assets/` exist at the root of your GitHub repo. The provided command requires those two paths. Copy the Build Command again without extra quotation marks.
-
-## Optional — Also publish on GitHub Pages
-
-You do **not** need GitHub Pages if you're using Render. If you'd like a second URL:
-
-1. Open your GitHub repository → **Settings**.
-2. In the left sidebar, select **Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**.
-4. Select branch **main** and folder **/ (root)**.
-5. Click **Save**.
-6. GitHub will display your Pages URL after the site is published.
-
-Because the portfolio uses relative CSS/JS links, both GitHub Pages and Render can serve the same codebase.
-
----
-
-**Before applying for jobs:** Read the text on your site from top to bottom. Make sure every job date, skill, and project status reflects what you can personally discuss in an interview. Do not upload confidential employer creative assets without permission.
+If only some styles or downloads are missing, ensure the `assets` directory was uploaded at repository top-level (next to `index.html`).
